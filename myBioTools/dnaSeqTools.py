@@ -98,23 +98,39 @@ h = createHist(quals)
 
 # plot as bar chart
 # x vals are length of hist, y vals are histogram itself
-plt.bar(range(len(h)), h)
-plt.show()
+#plt.bar(range(len(h)), h)
+#plt.show()
 
 # End of reads have a low quality value, due to improper base calls likely to happen at end of sequence
 
 ### ANALYZING READS BY POSITION ###
-"""
+
 def findGCByPos(reads):
     # number of GC bases seen at each position in reads
     # all reads are of length 100bp
     gc = [0] * 100
     # total bases
     totals = [0] * 100
-
-    for read in reads;
+# for each read check if it is a C or a G and increment the array by 1
+# increment totals on every base
+    for read in reads:
         for i in range(len(read)):
             if read[i] == 'C' or read[i] == 'G':
                 gc[i] += 1
             totals[i] += 1
-    for i in range(len(gc))"""
+    # calculate average GC content
+    for i in range(len(gc)):
+        if totals[i] > 0:
+            #store avg GC at each position in sequencing read in GC array
+            gc[i] /= float(totals[i])
+    print(gc)
+    return gc
+
+gc = findGCByPos(seqs)
+
+#plt.plot(range(len(gc)), gc)
+#plt.title("Average GC content at each position of sequence reads")
+#plt.show()
+# on avg in the human genome the GC content is higher than AT content which is consistent with my figure
+
+# Finished at Naive Exact Matching
